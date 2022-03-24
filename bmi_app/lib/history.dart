@@ -1,12 +1,23 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryPage extends StatelessWidget {
-  HistoryPage({required this.bmiString});
+  HistoryPage();
 
-  final List<String> bmiString;
+  // late List<String> bmiString = bmiString;
+  // List<String> history = [];
+
+  get bmiString => _load_history();
+
+  Future<List<String>> _load_history() async {
+    final prefs = await SharedPreferences.getInstance();
+    var bmiString = prefs.getStringList('history')!;
+    return bmiString;
+  }
+     
   final sharedPreferences = SharedPreferences.getInstance();
-
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +48,22 @@ class HistoryPage extends StatelessWidget {
                                 margin: EdgeInsets.all(5),
                                 child: Text("BMI HISTORY", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),),
                               Center(
-                                child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: bmiString == null ? 0 : bmiString.length <= 10 ? bmiString.length : (bmiString.length > 10 ? 10 : bmiString.length),
-                                itemBuilder: (context, index) {
-                                  return Text(bmiString[index], style: TextStyle(fontSize: 16), textAlign: TextAlign.center,);
-                                },
-                              ),
+                                child: FutureBuilder<List<String>> (future: bmiString,
+                                  builder: (context, projectSnap) {
+                                    if (projectSnap.connectionState == ConnectionState.none &&
+                                        projectSnap.hasData == null) {
+                                      //print('project snapshot data is: ${projectSnap.data}');
+                                      return Container();
+                                  }
+                                  return ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: projectSnap.data == null ? 0 : projectSnap.data!.length <= 10 ? projectSnap.data!.length : (projectSnap.data!.length > 10 ? 10 : projectSnap.data!.length),
+                                    itemBuilder: (context, index) {
+                                       return Text(projectSnap.data![index], style: TextStyle(fontSize: 16), textAlign: TextAlign.center,);
+                                    });
+                                }
                               )
-                            ],
+                              )],
                           ), ),
                   ],
                 ),
@@ -55,4 +73,4 @@ class HistoryPage extends StatelessWidget {
         )
     );
   }
-}// TODO Implement this library.
+}

@@ -1,5 +1,4 @@
 import 'package:flutter/rendering.dart';
-
 import './model/bmi_view_model.dart';
 
 class BMIView {

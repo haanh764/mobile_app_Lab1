@@ -8,7 +8,6 @@ import 'bmi_presenter.dart';
 
 class HomePage extends StatefulWidget {
   final BMIPresenter presenter;
-
   const HomePage(this.presenter, {Key? key, required this.title}) : super(key: key);
   final String title;
 
@@ -22,17 +21,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
   late String _weight, _height;
   var _message = '';
   var _bmiString = '';
-  // var _bmiVal = 0;
   var _color = Color.fromARGB(0, 0, 0, 0);
   var _value = 0;
   var _heightMessage = '';
   var _weightMessage = '';
   final FocusNode _heightFocus = FocusNode();
-  final FocusNode _weightFocus = FocusNode();
-  
-  List<String> history = [];
-  
+  final FocusNode _weightFocus = FocusNode();  
   var _formKey = GlobalKey<FormState>();
+
+  List<String> history = [];
 
   @override
   void initState() {
@@ -60,11 +57,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     setState(() {
-      // _appLifecycleState = state;
-      print("My App State: $state");
-      logger.d("Debug Log: $state");
-      // log('state: $state');
-      
+      logger.d("Debug Log: $state");     
     });
   }
 
@@ -107,7 +100,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
       color: Color.fromARGB(255, 198, 211, 255),
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(20.0),
-      height: 250,
+      height: 300,
       child: SingleChildScrollView(  
         child: Form(
           key: _formKey,
@@ -145,9 +138,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
                 fontStyle: FontStyle.italic
             ),
           ),
-          )
-          
-        ),
+        )
+      ),
         Padding(padding: EdgeInsets.all(2.0)),
         Center(
           child: Text(
@@ -217,8 +209,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
         SharedPreferences prefs = await SharedPreferences.getInstance();
         _calculator();
         history.insert(0, _bmiString);
-        prefs.getStringList('history');
-      } ,
+        prefs.setStringList('history', history);
+        // history = prefs.getStringList('history')!;
+      },
       style: ElevatedButton.styleFrom(
         primary: Color.fromARGB(255, 52, 99, 129),
       ),
@@ -241,7 +234,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
       },
       validator: (value) {
         if (value?.length == 0 || double.parse(value!) == 0.0) {
-          return ('Weight is not valid. Weight > 0.0');
+          return ('Weight is invalid. Weight must be > 0.0');
         }
       }, 
       onSaved: (value) {
@@ -267,7 +260,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
       },
       validator: (value) {
         if (value?.length == 0 || double.parse(value!) == 0.0) {
-          return ('Height is not valid. Height > 0.0');
+          return ('Height is invalid. Height must be > 0.0');
         }
       }, 
       onSaved: (value) {
@@ -289,15 +282,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
   void SelectedItem(BuildContext context, item) {
     switch (item) {
       case 0:
-        print("Homepage Clicked");
         break;
       case 1:
-        // print("User Logged out");
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => HistoryPage(bmiString: history)));
+            .push(MaterialPageRoute(builder: (context) => HistoryPage()));
         break;
       case 2:
-        // print("User Logged out");
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => AuthorPage()));
         break;
@@ -316,11 +306,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
       ],
     ),
     actions: <Widget>[
-      FlatButton(
+      ElevatedButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
-        textColor: Theme.of(context).primaryColor,
+        style: ElevatedButton.styleFrom(
+          primary: Theme.of(context).primaryColor,
+        ),
         child: const Text('Close'),
       ),
     ],
@@ -333,7 +325,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
       _bmiString = bmiValue;
       _message = message;
       _color = color;
-      // _bmiVal = int.parse(bmiValue);
     });
   }
 
@@ -360,6 +351,3 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
     });
   }
 }
-
-
-

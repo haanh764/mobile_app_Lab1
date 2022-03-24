@@ -5,10 +5,8 @@ import 'model/bmi_utils.dart';
 
 class BMIPresenter {
   void onCalculateClicked(String weightString, String heightString){
-
   }
   void onOptionChanged(int value, {required String weightString, required String heightString}) {
-
   }
   set bmiView(BMIView value){}
 
@@ -48,7 +46,6 @@ class BasicBMIPresenter implements BMIPresenter{
     try {
       weight = double.parse(weightString);
     } catch (e) {
-
     }
     _viewModel.height = height;
     _viewModel.weight = weight;
@@ -58,7 +55,6 @@ class BasicBMIPresenter implements BMIPresenter{
 
   @override
   void onOptionChanged(int value, {required String weightString, required String heightString})  {
-
     final weightScale = 2.2046226218;
     final heightScale = 2.54;
 
@@ -77,7 +73,6 @@ class BasicBMIPresenter implements BMIPresenter{
         try {
           weight = double.parse(weightString);
         } catch (e) {
-
         }
       }
 
@@ -93,11 +88,6 @@ class BasicBMIPresenter implements BMIPresenter{
       _view.updateHeight(height: _viewModel.heightInString);
       _view.updateWeight(weight: _viewModel.weightInString);
     }
-  }
-
-  @override
-  void onAgeSubmitted(String age) {
-    // TODO: will implement late
   }
 
   @override
