@@ -1,4 +1,7 @@
-# test_app_1
+# Activity Lifecycle App
+
+Lab 1 - Exercise 1 - Write app which use all methods from activity lifecycle and log them using
+logcat Log.d().
 
 A new Flutter project.
 
