@@ -1,8 +1,6 @@
 import 'package:flutter/rendering.dart';
-
 import 'bmi_utils.dart';
 import '../constant.dart';
-
 
 class BMIViewModel {
   double _bmi = 0.0;

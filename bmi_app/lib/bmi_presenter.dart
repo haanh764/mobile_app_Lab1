@@ -40,13 +40,10 @@ class BasicBMIPresenter implements BMIPresenter{
     var weight = 0.0;
     try {
       height = double.parse(heightString);
-    } catch (e){
-
-    }
+    } catch (e){}
     try {
       weight = double.parse(weightString);
-    } catch (e) {
-    }
+    } catch (e) {}
     _viewModel.height = height;
     _viewModel.weight = weight;
     _viewModel.bmi = BMICalculator(height, weight, _viewModel.unitType);
@@ -66,14 +63,12 @@ class BasicBMIPresenter implements BMIPresenter{
       if (!isEmptyString(heightString)) {
         try {
           height = double.parse(heightString);
-        } catch (e) {
-        }
+        } catch (e) {}
       }
       if (!isEmptyString(weightString)) {
         try {
           weight = double.parse(weightString);
-        } catch (e) {
-        }
+        } catch (e) {}
       }
 
       if (_viewModel.unitType == UnitType.FeetPound) {
@@ -94,17 +89,13 @@ class BasicBMIPresenter implements BMIPresenter{
   void onHeightSubmitted(String height) {
     try {
       _viewModel.height = double.parse(height);
-    } catch (e){
-
-    }
+    } catch (e){}
   }
 
   @override
   void onWeightSubmitted(String weight) {
     try {
       _viewModel.weight = double.parse(weight);
-    } catch (e){
-
-    }
+    } catch (e){}
   }
 }

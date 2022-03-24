@@ -35,8 +35,6 @@ class AuthorPage extends StatelessWidget {
                           margin: EdgeInsets.all(5),
                           child: Text("Email: 269588@student.pwr.edu.pl", style: TextStyle(fontSize: 14)),),
                     Container( 
-                          // padding: EdgeInsets.all(5), 
-                          // margin: EdgeInsets.all(5),
                           child: Text("Github: https://github.com/haanh764", style: TextStyle(fontSize: 14)),),
                   ],
                 ),
@@ -46,4 +44,3 @@ class AuthorPage extends StatelessWidget {
         ));
   }
 }
-

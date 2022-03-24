@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/rendering.dart';
-
 import '../constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
@@ -56,7 +55,6 @@ Future<int> loadValue() async{
   } else {
     return 0;
   }
-
 }
 
 void saveValue(int value) async{

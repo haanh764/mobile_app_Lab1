@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
                 );
               },
                 child: Text(
-                'Your BMI: $_bmiString',
+                'Your BMI (click for details): $_bmiString',
                 style: TextStyle(
                 color: _color,
                 fontSize: 24.0,
@@ -210,7 +210,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver impleme
         _calculator();
         history.insert(0, _bmiString);
         prefs.setStringList('history', history);
-        // history = prefs.getStringList('history')!;
       },
       style: ElevatedButton.styleFrom(
         primary: Color.fromARGB(255, 52, 99, 129),
